@@ -5,7 +5,7 @@ Features:
 ✅ Create & Manage Listings - Users can add, edit, and delete travel locations
 ✅ Reviews & Ratings - Users can leave feedback on listings
 ✅ Responsive UI - Designed with Bootstrap for a seamless experience
-✅ Map Integration - Visualize listings with an interactive map
+
 
 Tech Stack:
 Backend: Node.js, Express.js
