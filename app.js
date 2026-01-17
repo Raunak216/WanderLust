@@ -14,7 +14,7 @@ const listingsRouter = require("./routes/listing.js");
 const reviewsRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 const session = require("express-session");
-const MongoStore = require('connect-mongo');
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 
 //auth
@@ -30,7 +30,7 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "public")));
 
-const dbURL=process.env.ATLASDB_URL;
+const dbURL = process.env.ATLASDB_URL;
 app.listen(8080, () => {
   console.log("------------APP is listening-----------------");
 });
@@ -39,6 +39,7 @@ main().catch((err) => console.log(err));
 
 async function main() {
   await mongoose.connect(dbURL);
+  console.log("DB connected");
 }
 
 // app.get("/testListing", async (req, res) => {
@@ -54,16 +55,17 @@ async function main() {
 //   console.log("sample was saved");
 //   res.send("successful testing");
 // });
-const store=MongoStore.create({
-  mongoUrl:dbURL,
+const store = MongoStore.create({
+  mongoUrl: dbURL,
   crypto: {
-    secret:process.env.SECRET,
-  },touchAfter:24*60*60,
-}) ;
+    secret: process.env.SECRET,
+  },
+  touchAfter: 24 * 60 * 60,
+});
 
-store.on("error",()=>{
-  console.log("error in mongo session store",err)
-  });
+store.on("error", () => {
+  console.log("error in mongo session store", err);
+});
 const sessionOptions = {
   store,
   secret: process.env.SECRET,

@@ -1,26 +1,108 @@
-<% layout("/layouts/boilerplate.ejs")%>
+<% layout("/layouts/boilerplate.ejs") %>
+
+<style>
+  .listing-grid {
+    padding: 2rem 0;
+    row-gap: 2rem;
+  }
+
+  .listing-links {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .listing-card {
+    height: 100%;
+    border: none;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  .listing-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 22px 45px rgba(0, 0, 0, 0.15);
+  }
+
+  .image-wrapper {
+    position: relative;
+  }
+
+  .listing-card img {
+    height: 18rem;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 40%,
+      rgba(0, 0, 0, 0.45)
+    );
+  }
+
+  .card-body {
+    padding: 1rem 1.25rem;
+  }
+
+  .card-text {
+    margin: 0;
+    padding-left: 1rem;
+  }
+
+  .card-text b {
+    font-size: 1.05rem;
+    font-weight: 600;
+    display: block;
+    color: #222;
+    margin-bottom: 0.35rem;
+  }
+
+  .price {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #2c7be5;
+    margin-right: .5rem;
+  }
+
+  @media (max-width: 576px) {
+    .listing-card img {
+      height: 16rem;
+    }
+  }
+</style>
+
 <body>
-  <!-- <form action="/listings/new" method="get">
-    <button>create new listing</button>
-    </form>
-     -->
-  <div class="row row-cols-lg-3 row-cols-lg-2 row-cols-sm-1">
-    <%for(listing of alllistings){%>
-    <a href="/listings/<%=listing.id%>" class="listing-links">
-      <div class="card col listing-card">
-        <img src="<%=listing.image.url%>" 
-        class="card-img-top" alt="Listing_Image" style="height: 20rem;" />
-        <div class="card-img-overlay"></div>
-        <div class="card-body">
-          <p class="card-text">
-            <b><%= listing.title%></b>
-            <br />
-            &#8377;<%= listing.price%>
-            <!-- .toLocaleString("en-IN") -->
-          </p>
-        </div>
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4 listing-grid">
+    <% for (listing of alllistings) { %>
+      <div class="col d-flex">
+        <a href="/listings/<%= listing.id %>" class="listing-links w-100">
+          <div class="card listing-card">
+            <div class="image-wrapper">
+              <img
+                src="<%= listing.image.url %>"
+                class="card-img-top"
+                alt="Listing Image"
+              />
+              <div class="image-overlay"></div>
+            </div>
+
+            <div class="card-body">
+              <p class="card-text">
+                <b><%= listing.title %></b>
+                <span class="price">₹<%= listing.price %>/night</span>
+                <span > <%=listing.location %> ( <%=listing.country %> )</pan>
+              </p>
+            </div>
+          </div>
+        </a>
       </div>
-    </a>
-    <%}%>
+    <% } %>
   </div>
 </body>

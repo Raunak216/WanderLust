@@ -21,7 +21,7 @@ router
     isLoggedIn,
     upload.single("listing[image]"), //upload img to cloudinary
     validateListing, //we upload image then only validate by joi
-    wrapAsync(listingController.createNewListings) //create route
+    wrapAsync(listingController.createNewListings), //create route
   );
 
 //new listings
@@ -33,7 +33,7 @@ router.get(
   "/:id/edit",
   isLoggedIn,
   isOwner,
-  wrapAsync(listingController.renderEditForm)
+  wrapAsync(listingController.renderEditForm),
 );
 router
   .route("/:id")
@@ -42,7 +42,7 @@ router
     isOwner,
     upload.single("listing[image]"), //upload img to cloudinary
     validateListing,
-    wrapAsync(listingController.updateListings) //update route
+    wrapAsync(listingController.updateListings), //update route
   )
   .delete(isLoggedIn, isOwner, wrapAsync(listingController.destroyListing)) //destroy route
   .get(wrapAsync(listingController.showListings)); //show route
